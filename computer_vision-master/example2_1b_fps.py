@@ -1,8 +1,10 @@
+#รันวีดีโอแบบสนใจ fps โดยจะรันช้ากว่าความเป้นจริงเล็กน้อย ขึ้นอยู่กับการประมวลผลของคอมพิวเตอร์
+
 import cv2
 
 #Download 'ExampleBGSubtraction.avi' from https://drive.google.com/file/d/1OD_A0wqN2Om2SusCztybu-_hMSUQuRt7/view?usp=sharing
 
-cap = cv2.VideoCapture('ExampleBGSubtraction.avi')
+cap = cv2.VideoCapture('C:\\Users\\Poommipat\\Documents\\exam_comvision\\computer_vision-master\\ExampleBGSubtraction.avi')
 fps = cap.get(cv2.CAP_PROP_FPS) ################
 print(fps) ###################
 

@@ -1,3 +1,5 @@
+# การใช้งาน contour
+
 import numpy as np
 import cv2
 
@@ -12,6 +14,11 @@ cv2.fillPoly(im,polygons,colors)
 im[250:340,250:340] = 0
 im[270:300,290:320] = 255
 
+
+#cv2.RETR_TREE เอาก้อนในด้วย
+#cv2.RETR_EXTERNAL เอาแค่ก้อนนอก
+#cv2.CHAIN_APPROX_NONE เอาทุกจุดจนเส้นปิด
+#cv2.CHAIN_APPROX_SIMPLE เอาแค่จุดมุม
 contours,hierarchy = cv2.findContours(im, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
 #try mode cv2.RETR_EXTERNAL and cv2.RETR_TREE
 #try method cv2.CHAIN_APPROX_NONE and cv2.CHAIN_APPROX_SIMPLE

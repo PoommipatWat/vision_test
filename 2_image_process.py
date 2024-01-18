@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.ndimage import binary_dilation, binary_erosion
 
 def linear_shift_invariance(input_signal, filter_coefficients):
     filter_coefficients = filter_coefficients[::-1,::-1]
@@ -132,13 +133,22 @@ def canny_edge(input_signal, blur, tl, th):
     strong_edge, weak_edge = hysteresis_thresholding(suppressed_magnitude, tl, th)      #ยังไม่ได้เทสผลลัพท์
     return strong_edge , weak_edge
 
-def median_filter(input_signal, n): #ยังไม่ไดเทส
+def median_filter(input_signal, n):
     output = np.zeros_like(input_signal)
     input_signal = np.pad(input_signal, n//2, 'constant', constant_values=0)
     for i in range(n//2, len(input_signal)-n//2):
         for j in range(n//2, len(input_signal[0])-n//2):
             output[i-n//2, j-n//2] = np.median(input_signal[i-n//2:i+n//2+1, j-n//2:j+n//2+1])
     return output
+
+def dilation(input_signal, kernel):                             #เพิ่มขนาดของขอบ
+    return binary_dilation(input_signal, structure=kernel).astype(np.int32)
+
+def erosion(input_signal, kernel):                              #ลดขนาดของขอบ
+    return binary_erosion(input_signal, structure=kernel).astype(np.int32)
+
+def opening(input_signal, kernel):                              #ลดขนาดขอบแล้วเพิ่มขนาดขอบ
+    return dilation(erosion(input_signal, kernel), kernel)
 
 inp = np.array([[0,0,0,0,0,0],
                 [0,0,0,255,255,255],
@@ -175,7 +185,46 @@ md = np.array([[0,0,3,2,0,0,0],
                [0,67,53,55,0,0,0],
                [0,0,72,0,0,0,0]])
 
-print(median_filter(md, 3))
+pic = np.array([[0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,1,1,1,0,0],
+                [0,1,0,0,0,0,0,0,0],
+                [0,1,0,0,1,1,1,0,0],
+                [0,1,0,0,1,1,1,0,0],
+                [0,1,0,0,1,1,1,1,0],
+                [0,1,0,0,1,1,1,0,0],
+                [0,0,0,0,0,0,0,0,0]])
+kernel = np.array([[0,0,1,0,0],
+                   [0,0,1,0,0],
+                   [1,1,1,1,1],
+                   [0,0,1,0,0],
+                   [0,0,1,0,0]])
+
+pic = np.array([[0,0,0,0,0,0,0,0,0],
+                [0,1,0,1,1,1,0,0,0],
+                [0,0,0,1,1,1,1,0,0],
+                [0,1,1,1,1,1,1,1,0],
+                [0,1,1,1,1,1,1,1,0],
+                [0,0,1,1,0,1,0,0,0],
+                [0,1,0,0,1,1,1,0,0],
+                [0,0,0,0,0,0,0,0,0]])
+kernel = np.array([[0,1,1],
+                   [1,1,1],
+                   [1,1,0]])
+
+pic = np.array([[0,0,0,0,0,0,0,0,0],
+                [0,1,1,1,0,0,0,0,0],
+                [0,0,1,0,0,0,0,1,0],
+                [0,0,1,0,0,1,0,1,0],
+                [0,0,0,0,0,0,0,1,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,1,1,1,1,1,0,0],
+                [0,0,0,0,0,0,0,0,0]])
+kernel = np.array([[0,0,0],
+                   [1,1,1],
+                   [0,0,0]])
+print(opening(pic, kernel))
+
+
 
 
 
