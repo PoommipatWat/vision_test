@@ -360,19 +360,11 @@ class classification:
             less_than = [less_than_green, less_than_red, less_than_purple]
             morethan = [morethan_green, morethan_red, morethan_purple]
 
-            child_one = 0
-            child_two = 0
-
             n_less = sum(less_than)
             n_more = sum(morethan)
 
-            for i in range(3):
-                if less_than[i] != 0:
-                    child_one += less_than[i]/n_less * np.log2(less_than[i]/n_less)
-                if morethan[i] != 0:
-                    child_two += morethan[i]/n_more * np.log2(morethan[i]/n_more)
-            child_one *= -1
-            child_two *= -1
+            child_one = classification.child_find_value(less_than_green, less_than_red, less_than_purple)
+            child_two = classification.child_find_value(morethan_green, morethan_red, morethan_purple)
 
             print(child_one, child_two)
 
