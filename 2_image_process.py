@@ -185,7 +185,7 @@ inp = np.array([[0,0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,50,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0,0]])    
 
-print(canny_edge(inp, 5, 50, 100))         
+# print(canny_edge(inp, 5, 50, 100))         
 
 inp = np.array([[0,0,0,0,0,0],
                 [0,0,7,0,0,0],
@@ -255,20 +255,3 @@ test = np.array([[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                  [0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]])
 
-#kernel = np.array([[0,1,0],
-#                   [1,1,1],
-#                     [0,1,0]])
-#test = opening(test, kernel)
-
-# kernel = np.array([[0,1,0],
-#                    [0,1,0],
-#                    [0,1,0]])
-# test = opening(test, kernel)
-
-kernel = np.array([[0,0,0,0],
-                     [1,1,1,1],
-                     [0,0,0]])
-
-test = clossing(test, kernel)
-
-plot_table(test)
