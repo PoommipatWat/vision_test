@@ -6,6 +6,7 @@ imp = image_process()
 cls = classification()
 
 # ตัวอย่าง GLCM
+print("-------------------- GLCM --------------------")
 test = np.array([[255,250,152,80,11,5],
                 [250,240,200,160,89,52],
                 [253,230,180,122,40,2],
@@ -24,6 +25,7 @@ print(f"Homogeneity : {glcm[5]}")
 print(f"Correlation : {glcm[6]}")
 
 # ตัวอย่าง pdf
+print("-------------------- pdf --------------------")
 x1 = np.array([0.34,0.15,0.45,0.28,0.13])
 x2 = np.array([0.19,0.3,0.45,0.25,0.35])
 print(f"pdf : {cls.pdf_find(0.14, x1) * cls.pdf_find(0.37, x2)}")
@@ -33,12 +35,23 @@ c = np.array([[0,0.2,0],
 
 
 
-
+# ตัวอย่าง decision tree
+print("-------------------- decision tree --------------------")
 sample_green = [[0.5, 5.5], [0.5, 3.5], [1.5, 4.5], [1.5, 3.3], [1.5, 3.7], [3.5, 2.5], [4.5, 2.7]]
 sample_red = [[0.5, 1.5], [1.5, 2.5], [2.5, 1.5], [2.5, 3.5], [5.5, 0.5], [4.5, 1.7], [4.5, 1.3]]
 sample_purple = [[3.5, 4.5], [4.5, 2.3], [4.5, 4.3], [4.5, 4.7], [4.5, 5.5], [5.5, 4.5], [5.5, 5.5]]
+cls.homeworks_information_gain(sample_green, sample_red, sample_purple)
 
-cls.homeworks_information_gain(sample_green,sample_red,sample_purple)
+entropy = cls.entropy_find_values(12,8)
+child1 = cls.child_find_value(10,0)
+child2 = cls.child_find_value(2,8)
+sample = [10,10]
+information_gain = cls.information_gain_find_value(entropy, [child1, child2] , sample)
+
+print(f"Entropy : {entropy}")
+print(f"Child 1 : {child1}")
+print(f"Child 2 : {child2}")
+print(f"Information gain : {information_gain}")
 
 
 

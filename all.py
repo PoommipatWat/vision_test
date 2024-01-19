@@ -280,20 +280,28 @@ class classification:
         return features
 
     @staticmethod
-    def entropy_find(*samples):
+    def entropy_find_samples(*samples):
         n = 0
         sample = []
         for metrix in samples:
-            n += np.sum(metrix)
+            n += np.sum(len(metrix))
             sample.append(metrix)
         entropy = 0
         for i in range(len(sample)):
-            entropy += (sample[i])/n * np.log2((sample[i])/n)
+            entropy += (len(sample[i]))/n * np.log2((len(sample[i]))/n)
         entropy *= -1
         return entropy, n
+    
+    @staticmethod
+    def entropy_find_values(*values):
+        entropy = 0
+        n = np.sum(values)
+        for i in range(len(values)):
+            entropy += (values[i])/n * np.log2((values[i])/n)
+        return entropy * -1
 
     @staticmethod
-    def child_find(*samples):
+    def child_find_samples(*samples):
         n = 0
         for i in samples:
             n += np.sum(i)
@@ -302,9 +310,19 @@ class classification:
             child += (samples[i])/n * np.log2((samples[i])/n)
         child *= -1
         return child
+    
+    @staticmethod
+    def child_find_value(*values):
+        n = np.sum(values)
+        child = 0
+        for i in range(len(values)):
+            if values[i] != 0:
+                child += (values[i])/n * np.log2((values[i])/n)
+        child *= -1
+        return child
 
     @staticmethod
-    def information_gain_find(entropy, childs, samples):
+    def information_gain_find_value(entropy, childs, samples):
         n = np.sum(samples)
         inner = 0
         for i in range (len(childs)):
@@ -314,7 +332,7 @@ class classification:
     @staticmethod
     def homeworks_information_gain(sample_green, sample_red, sample_purple):
         # find entropy
-        entropy, n = classification.entropy_find(sample_green, sample_red, sample_purple)
+        entropy, n = classification.entropy_find_samples(sample_green, sample_red, sample_purple)
 
         for X in range(1, 6):
             less_than_green = 0
