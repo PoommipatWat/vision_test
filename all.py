@@ -481,14 +481,17 @@ class classification:
         for i in (range(len(inp))):
             u1 += i * np.sum(inp[i])
             u2 += i * np.sum(inpt[i])
-        std1 = 0
-        std2 = 0
+        std12 = 0
+        std22 = 0
         for i in (range(len(inp))):
-            std1 += (i - u1)**2 * np.sum(inp[i])
-            std2 += (i - u2)**2 * np.sum(inpt[i])
+            std12 += (i - u1)**2 * np.sum(inp[i])
+            std22 += (i - u2)**2 * np.sum(inpt[i])
+        std1 = np.sqrt(std12)
+        std2 = np.sqrt(std22)
         for i in range(len(inp)):
             for j in range(len(inp[0])):
                 out += (i - u1) * (j - u2) * inp[i,j] / (std1 * std2)
+        print(u1, u2, std1, std2)
         return out
     
     @staticmethod

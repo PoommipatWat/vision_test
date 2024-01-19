@@ -29,3 +29,9 @@ x2 = np.array([0.19,0.3,0.45,0.25,0.35])
 print(f"pdf : {cls.pdf_find(0.14, x1) * cls.pdf_find(0.37, x2)}")
 
 
+c = np.array([[0,0.2,0],
+              [0,0,0],
+              [0.2,0,0.6]])
+
+print(f"Contrast : {cls.correlation(c)}")
+
