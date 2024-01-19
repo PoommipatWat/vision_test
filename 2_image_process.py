@@ -1,5 +1,7 @@
 import numpy as np
 from scipy.ndimage import binary_dilation, binary_erosion
+import matplotlib.pyplot as plt
+from matplotlib.table import Table
 
 def linear_shift_invariance(input_signal, filter_coefficients):
     filter_coefficients = filter_coefficients[::-1,::-1]
@@ -150,6 +152,21 @@ def erosion(input_signal, kernel):                              #ลดขนา
 def opening(input_signal, kernel):                              #ลดขนาดขอบแล้วเพิ่มขนาดขอบ
     return dilation(erosion(input_signal, kernel), kernel)
 
+def clossing(input_signal, kernel):                                 #เพิ่มขนาดขอบแล้วลดขนาดขอบ
+    return erosion(dilation(input_signal, kernel), kernel)
+
+def plot_table(matrix):
+    # พล็อตตาราง
+    plt.imshow(matrix, cmap='binary', interpolation='none', extent=[-0.5, test.shape[1]-0.5, -0.5, test.shape[0]-0.5])
+
+    # เพิ่มเส้นกริดและป้ายกำกับ
+    plt.grid(True, which='both', linestyle='-', linewidth=1, color='black')
+    plt.xticks(np.arange(-0.5, test.shape[1]-0.5, 1), np.arange(0, test.shape[1], 1))
+    plt.yticks(np.arange(-0.5, test.shape[0]-0.5, 1), np.arange(0, test.shape[0], 1))
+
+    plt.show()
+
+
 inp = np.array([[0,0,0,0,0,0],
                 [0,0,0,255,255,255],
                 [0,0,0,255,255,255],
@@ -166,7 +183,9 @@ inp = np.array([[0,0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,100,200,200,200,100,0,0,0],
                 [0,0,0,0,100,200,100,0,0,0,0],
                 [0,0,0,0,0,50,0,0,0,0,0],
-                [0,0,0,0,0,0,0,0,0,0,0]])             
+                [0,0,0,0,0,0,0,0,0,0,0]])    
+
+print(canny_edge(inp, 5, 50, 100))         
 
 inp = np.array([[0,0,0,0,0,0],
                 [0,0,7,0,0,0],
@@ -222,9 +241,34 @@ pic = np.array([[0,0,0,0,0,0,0,0,0],
 kernel = np.array([[0,0,0],
                    [1,1,1],
                    [0,0,0]])
-print(opening(pic, kernel))
+# print(opening(pic, kernel))
 
 
+test = np.array([[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                 [0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],
+                 [0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],
+                 [0,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+                 [0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],
+                 [0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],
+                 [0,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+                 [0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],
+                 [0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]])
 
+#kernel = np.array([[0,1,0],
+#                   [1,1,1],
+#                     [0,1,0]])
+#test = opening(test, kernel)
 
+# kernel = np.array([[0,1,0],
+#                    [0,1,0],
+#                    [0,1,0]])
+# test = opening(test, kernel)
 
+kernel = np.array([[0,0,0,0],
+                     [1,1,1,1],
+                     [0,0,0]])
+
+test = clossing(test, kernel)
+
+plot_table(test)

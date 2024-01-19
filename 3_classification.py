@@ -180,3 +180,11 @@ def homeworks_information_gain():
 
     # Show the plot
     plt.show()
+
+def pdf_find(sample, pb):
+    mean = np.mean(sample)
+    print(mean)
+    std = np.std(sample, ddof=1)
+    print(std**2)
+    return 1/(std * np.sqrt(2 * np.pi)) * np.exp(-1/2 * ((pb - mean)/std)**2)
+
