@@ -27,11 +27,19 @@ print(f"Correlation : {glcm[6]}")
 x1 = np.array([0.34,0.15,0.45,0.28,0.13])
 x2 = np.array([0.19,0.3,0.45,0.25,0.35])
 print(f"pdf : {cls.pdf_find(0.14, x1) * cls.pdf_find(0.37, x2)}")
-
-
 c = np.array([[0,0.2,0],
               [0,0,0],
               [0.2,0,0.6]])
 
-print(f"Contrast : {cls.correlation(c)}")
+
+
+
+sample_green = [[0.5, 5.5], [0.5, 3.5], [1.5, 4.5], [1.5, 3.3], [1.5, 3.7], [3.5, 2.5], [4.5, 2.7]]
+sample_red = [[0.5, 1.5], [1.5, 2.5], [2.5, 1.5], [2.5, 3.5], [5.5, 0.5], [4.5, 1.7], [4.5, 1.3]]
+sample_purple = [[3.5, 4.5], [4.5, 2.3], [4.5, 4.3], [4.5, 4.7], [4.5, 5.5], [5.5, 4.5], [5.5, 5.5]]
+
+cls.homeworks_information_gain(sample_green,sample_red,sample_purple)
+
+
+
 

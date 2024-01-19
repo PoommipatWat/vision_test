@@ -284,7 +284,7 @@ class classification:
         n = 0
         sample = []
         for metrix in samples:
-            n += (metrix)
+            n += np.sum(metrix)
             sample.append(metrix)
         entropy = 0
         for i in range(len(sample)):
@@ -294,7 +294,9 @@ class classification:
 
     @staticmethod
     def child_find(*samples):
-        n = np.sum(samples)
+        n = 0
+        for i in samples:
+            n += np.sum(i)
         child = 0
         for i in range(len(samples)):
             child += (samples[i])/n * np.log2((samples[i])/n)
