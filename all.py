@@ -491,7 +491,6 @@ class classification:
         for i in range(len(inp)):
             for j in range(len(inp[0])):
                 out += (i - u1) * (j - u2) * inp[i,j] / (std1 * std2)
-        print(u1, u2, std1, std2)
         return out
     
     @staticmethod
